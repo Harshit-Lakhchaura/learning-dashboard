@@ -8,21 +8,45 @@ export function HeroTile({ streak = 7 }: { streak?: number }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      className="w-full rounded-2xl bg-gradient-to-br from-violet-900/50 via-purple-900/30 to-cyan-900/30 border border-violet-500/20 p-8 relative overflow-hidden"
+      style={{
+        width: '100%',
+        borderRadius: '16px',
+        background: 'linear-gradient(135deg, rgba(76,29,149,0.6) 0%, rgba(109,40,217,0.3) 50%, rgba(22,78,99,0.3) 100%)',
+        border: '1px solid rgba(139,92,246,0.2)',
+        padding: '32px',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
     >
-      {/* Background glow effect */}
-      <div className="absolute -top-10 -right-10 w-40 h-40 bg-violet-500/20 rounded-full blur-3xl" />
-      <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl" />
-      
-      <div className="relative z-10">
-        <h1 className="text-3xl font-bold text-white mb-2">
-          Welcome back, <span className="text-violet-400">Learner</span> 👋
+      {/* Glow effects */}
+      <div style={{
+        position: 'absolute', top: '-40px', right: '-40px',
+        width: '160px', height: '160px',
+        backgroundColor: 'rgba(139,92,246,0.2)',
+        borderRadius: '50%', filter: 'blur(40px)',
+      }} />
+      <div style={{
+        position: 'absolute', bottom: '-40px', left: '-40px',
+        width: '160px', height: '160px',
+        backgroundColor: 'rgba(6,182,212,0.1)',
+        borderRadius: '50%', filter: 'blur(40px)',
+      }} />
+
+      <div style={{ position: 'relative', zIndex: 10 }}>
+        <h1 style={{ fontSize: '28px', fontWeight: 700, color: 'white', marginBottom: '8px' }}>
+          Welcome back, <span style={{ color: '#a78bfa' }}>Learner</span> 👋
         </h1>
-        <p className="text-white/50 mb-6">Continue your learning journey today.</p>
-        
-        <div className="flex items-center gap-2 bg-white/5 w-fit px-4 py-2 rounded-full border border-white/10">
-          <Flame className="text-orange-400" size={20} />
-          <span className="text-white font-semibold">{streak} Day Streak</span>
+        <p style={{ color: 'rgba(255,255,255,0.5)', marginBottom: '24px' }}>
+          Continue your learning journey today.
+        </p>
+        <div style={{
+          display: 'inline-flex', alignItems: 'center', gap: '8px',
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          padding: '8px 16px', borderRadius: '999px',
+          border: '1px solid rgba(255,255,255,0.1)',
+        }}>
+          <Flame color="#fb923c" size={20} />
+          <span style={{ color: 'white', fontWeight: 600 }}>{streak} Day Streak</span>
         </div>
       </div>
     </motion.section>

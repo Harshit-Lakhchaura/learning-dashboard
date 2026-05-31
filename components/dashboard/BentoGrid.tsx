@@ -10,17 +10,26 @@ interface BentoGridProps {
 
 export function BentoGrid({ courses }: BentoGridProps) {
   return (
-    <main className="flex-1 w-full">
-      {/* Hero Tile - Full Width */}
-      <div className="mb-4">
+    <main
+    style={{
+    width: '100%',
+    maxWidth: '1600px',
+    margin: '0 auto',
+    }}
+    >
+      {/* Hero Tile */}
+      <div style={{ marginBottom: '16px' }}>
         <HeroTile streak={7} />
       </div>
 
-      {/* Course Cards + Activity Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Bento Grid - 3 columns */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 items-start">
+        {/* Course Cards */}
         {courses.map((course, index) => (
           <CourseCard key={course.id} course={course} index={index} />
         ))}
+
+        {/* Activity Tile - always 1 column */}
         <ActivityTile />
       </div>
     </main>

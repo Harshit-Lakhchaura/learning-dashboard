@@ -23,21 +23,52 @@ export function CourseCard({ course, index }: CourseCardProps) {
         damping: 20,
       }}
       whileHover={{ scale: 1.02 }}
-      className="rounded-2xl bg-[#1a1a24] border border-white/10 p-6 cursor-pointer relative overflow-hidden group h-fit"
+      style={{
+      backgroundColor: '#1a1a24',
+      border: '1px solid rgba(255,255,255,0.1)',
+      borderRadius: '16px',
+      padding: '22px',
+      cursor: 'pointer',
+      position: 'relative',
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      minHeight: '165px',
+}}
     >
-      {/* Hover gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-
-      <div className="relative z-10 flex flex-col gap-4">
-        <div className="bg-violet-500/10 w-12 h-12 rounded-xl flex items-center justify-center">
-          <Icon className="text-violet-400" size={24} />
-        </div>
-        <div>
-          <h3 className="text-white font-semibold text-base mb-1">{course.title}</h3>
-          <p className="text-white/40 text-sm">{course.progress}% complete</p>
-        </div>
-        <ProgressBar value={course.progress} />
+      {/* Icon */}
+      <div style={{
+        backgroundColor: 'rgba(139, 92, 246, 0.15)',
+        width: '44px',
+        height: '44px',
+        borderRadius: '10px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+      }}>
+        <Icon color="#a78bfa" size={22} />
       </div>
+
+      {/* Title + Progress % */}
+      <div>
+        <h3 style={{
+          color: 'white',
+          fontWeight: 600,
+          fontSize: '14px',
+          marginBottom: '2px',
+          lineHeight: '1.3',
+        }}>
+          {course.title}
+        </h3>
+        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px' }}>
+          {course.progress}% complete
+        </p>
+      </div>
+
+      {/* Progress Bar */}
+      <ProgressBar value={course.progress} />
     </motion.article>
   )
 }

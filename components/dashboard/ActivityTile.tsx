@@ -24,12 +24,19 @@ export function ActivityTile() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3, type: 'spring', stiffness: 300, damping: 20 }}
-      className="rounded-2xl bg-[#1a1a24] border border-white/10 p-5"
+      className="
+      rounded-2xl
+    bg-[#1a1a24]
+      border
+    border-white/10
+      p-5
+     min-h-[250px]
+      "
     >
       <h2 className="text-white font-semibold mb-1">Activity</h2>
       <p className="text-white/40 text-xs mb-4">Last 5 weeks</p>
 
-      <div className="grid grid-cols-7 gap-1">
+     <div className="grid grid-cols-7 gap-2 mt-2">
         {activityData.map((day) => (
           <motion.div
             key={day.id}

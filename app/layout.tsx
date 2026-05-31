@@ -17,12 +17,25 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${geist.className}`}
-        style={{ backgroundColor: '#0f0f13', color: 'white', margin: 0, padding: 0 }}
-      >
-        <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
+      <body className={geist.className} style={{
+        backgroundColor: '#0f0f13',
+        color: 'white',
+        margin: 0,
+        padding: 0,
+        height: '100vh',
+        overflow: 'hidden',
+      }}>
+        <div style={{
+          display: 'flex',
+          height: '100vh',
+        }}>
           <Sidebar />
-          <div style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+          <div style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '24px',
+            backgroundColor: '#0f0f13',
+          }}>
             {children}
           </div>
         </div>

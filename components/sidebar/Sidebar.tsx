@@ -11,10 +11,10 @@ import {
 } from 'lucide-react'
 
 const navItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, href: '#' },
-  { label: 'Courses', icon: BookOpen, href: '#' },
-  { label: 'Achievements', icon: Trophy, href: '#' },
-  { label: 'Settings', icon: Settings, href: '#' },
+  { label: 'Dashboard', icon: LayoutDashboard },
+  { label: 'Courses', icon: BookOpen },
+  { label: 'Achievements', icon: Trophy },
+  { label: 'Settings', icon: Settings },
 ]
 
 export function Sidebar() {
@@ -23,29 +23,64 @@ export function Sidebar() {
 
   return (
     <motion.nav
-      animate={{ width: collapsed ? 64 : 220 }}
+      animate={{ width: collapsed ? 72 : 240 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      className="h-screen bg-[#0f0f13] border-r border-white/10 flex flex-col py-6 relative shrink-0"
+      style={{
+        height: '100vh',
+        backgroundColor: '#0f0f13',
+        borderRight: '1px solid rgba(255,255,255,0.08)',
+        display: 'flex',
+        flexDirection: 'column',
+        paddingTop: '24px',
+        paddingBottom: '24px',
+        flexShrink: 0,
+        overflow: 'hidden',
+      }}
     >
       {/* Logo */}
-      <div className="px-4 mb-8 overflow-hidden">
-        <AnimatePresence>
-          {!collapsed && (
+      <div style={{ padding: '0 16px', marginBottom: '32px', overflow: 'hidden' }}>
+        <AnimatePresence mode="wait">
+          {!collapsed ? (
             <motion.span
+              key="full"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="text-white font-bold text-lg whitespace-nowrap"
+              transition={{ duration: 0.2 }}
+              style={{
+                color: 'white',
+                fontWeight: 700,
+                fontSize: '18px',
+                whiteSpace: 'nowrap',
+                display: 'block',
+              }}
             >
               🎓 LearnHub
             </motion.span>
+          ) : (
+            <motion.span
+              key="icon"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              style={{ fontSize: '18px', display: 'block' }}
+            >
+              🎓
+            </motion.span>
           )}
         </AnimatePresence>
-        {collapsed && <span className="text-white font-bold text-lg">🎓</span>}
       </div>
 
       {/* Nav Items */}
-      <ul className="flex flex-col gap-1 px-2 flex-1">
+      <ul style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '4px',
+        padding: '0 8px',
+        flex: 1,
+        listStyle: 'none',
+        margin: 0,
+      }}>
         {navItems.map((item) => {
           const Icon = item.icon
           const isActive = activeItem === item.label
@@ -54,33 +89,55 @@ export function Sidebar() {
             <li key={item.label}>
               <button
                 onClick={() => setActiveItem(item.label)}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl relative"
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '10px 12px',
+                  borderRadius: '12px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  backgroundColor: isActive ? 'rgba(139,92,246,0.15)' : 'transparent',
+                  outline: 'none',
+                }}
               >
-                {/* Active background */}
+                {/* Active border */}
                 {isActive && (
                   <motion.div
                     layoutId="activeNav"
-                    className="absolute inset-0 bg-violet-500/20 rounded-xl border border-violet-500/30"
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      borderRadius: '12px',
+                      border: '1px solid rgba(139,92,246,0.3)',
+                    }}
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
                 )}
 
                 <Icon
                   size={20}
-                  className={`relative z-10 shrink-0 ${
-                    isActive ? 'text-violet-400' : 'text-white/40'
-                  }`}
+                  color={isActive ? '#a78bfa' : 'rgba(255,255,255,0.4)'}
+                  style={{ flexShrink: 0, position: 'relative', zIndex: 10 }}
                 />
 
                 <AnimatePresence>
                   {!collapsed && (
                     <motion.span
-                      initial={{ opacity: 0, x: -10 }}
+                      initial={{ opacity: 0, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -10 }}
-                      className={`relative z-10 text-sm font-medium whitespace-nowrap ${
-                        isActive ? 'text-white' : 'text-white/40'
-                      }`}
+                      exit={{ opacity: 0, x: -8 }}
+                      transition={{ duration: 0.2 }}
+                      style={{
+                        color: isActive ? 'white' : 'rgba(255,255,255,0.4)',
+                        fontSize: '14px',
+                        fontWeight: 500,
+                        whiteSpace: 'nowrap',
+                        position: 'relative',
+                        zIndex: 10,
+                      }}
                     >
                       {item.label}
                     </motion.span>
@@ -95,13 +152,22 @@ export function Sidebar() {
       {/* Collapse Button */}
       <button
         onClick={() => setCollapsed(!collapsed)}
-        className="mx-auto mt-4 p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+        style={{
+          margin: '16px auto 0',
+          padding: '8px',
+          borderRadius: '8px',
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          border: 'none',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
       >
-        {collapsed ? (
-          <ChevronRight size={16} className="text-white/40" />
-        ) : (
-          <ChevronLeft size={16} className="text-white/40" />
-        )}
+        {collapsed
+          ? <ChevronRight size={16} color="rgba(255,255,255,0.4)" />
+          : <ChevronLeft size={16} color="rgba(255,255,255,0.4)" />
+        }
       </button>
     </motion.nav>
   )
