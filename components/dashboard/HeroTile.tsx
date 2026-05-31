@@ -8,7 +8,7 @@ export function HeroTile({ streak = 7 }: { streak?: number }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      className="col-span-full rounded-2xl bg-gradient-to-br from-violet-900/50 via-purple-900/30 to-cyan-900/30 border border-violet-500/20 p-8 relative overflow-hidden"
+      className="w-full rounded-2xl bg-gradient-to-br from-violet-900/50 via-purple-900/30 to-cyan-900/30 border border-violet-500/20 p-8 relative overflow-hidden"
     >
       {/* Background glow effect */}
       <div className="absolute -top-10 -right-10 w-40 h-40 bg-violet-500/20 rounded-full blur-3xl" />
