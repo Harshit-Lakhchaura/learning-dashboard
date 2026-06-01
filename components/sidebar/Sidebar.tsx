@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard,
@@ -20,7 +20,91 @@ const navItems = [
 export function Sidebar() {
   const [collapsed, setCollapsed] = useState(false)
   const [activeItem, setActiveItem] = useState('Dashboard')
+  const [isMobile, setIsMobile] = useState(false)
+  const [isTablet, setIsTablet] = useState(false)
 
+  useEffect(() => {
+    const checkSize = () => {
+      const width = window.innerWidth
+      setIsMobile(width < 768)
+      setIsTablet(width >= 768 && width < 1024)
+      if (width < 1024) setCollapsed(true)
+      if (width >= 1024) setCollapsed(false)
+    }
+    checkSize()
+    window.addEventListener('resize', checkSize)
+    return () => window.removeEventListener('resize', checkSize)
+  }, [])
+
+  // Mobile — Bottom Navigation Bar
+  if (isMobile) {
+    return (
+      <nav style={{
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: '64px',
+        backgroundColor: '#0f0f13',
+        borderTop: '1px solid rgba(255,255,255,0.08)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        zIndex: 50,
+        paddingBottom: 'env(safe-area-inset-bottom)',
+      }}>
+        {navItems.map((item) => {
+          const Icon = item.icon
+          const isActive = activeItem === item.label
+          return (
+            <button
+              key={item.label}
+              onClick={() => setActiveItem(item.label)}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '4px',
+                padding: '8px 16px',
+                backgroundColor: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                position: 'relative',
+              }}
+            >
+              {isActive && (
+                <motion.div
+                  layoutId="mobileActiveNav"
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    backgroundColor: 'rgba(139,92,246,0.15)',
+                    borderRadius: '12px',
+                  }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                />
+              )}
+              <Icon
+                size={22}
+                color={isActive ? '#a78bfa' : 'rgba(255,255,255,0.4)'}
+                style={{ position: 'relative', zIndex: 10 }}
+              />
+              <span style={{
+                fontSize: '10px',
+                color: isActive ? '#a78bfa' : 'rgba(255,255,255,0.4)',
+                position: 'relative',
+                zIndex: 10,
+              }}>
+                {item.label}
+              </span>
+            </button>
+          )
+        })}
+      </nav>
+    )
+  }
+
+  // Tablet + Desktop — Side Sidebar
   return (
     <motion.nav
       animate={{ width: collapsed ? 72 : 240 }}
@@ -84,7 +168,6 @@ export function Sidebar() {
         {navItems.map((item) => {
           const Icon = item.icon
           const isActive = activeItem === item.label
-
           return (
             <li key={item.label}>
               <button
@@ -103,7 +186,6 @@ export function Sidebar() {
                   outline: 'none',
                 }}
               >
-                {/* Active border */}
                 {isActive && (
                   <motion.div
                     layoutId="activeNav"
@@ -116,13 +198,11 @@ export function Sidebar() {
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
                 )}
-
                 <Icon
                   size={20}
                   color={isActive ? '#a78bfa' : 'rgba(255,255,255,0.4)'}
                   style={{ flexShrink: 0, position: 'relative', zIndex: 10 }}
                 />
-
                 <AnimatePresence>
                   {!collapsed && (
                     <motion.span
@@ -149,26 +229,28 @@ export function Sidebar() {
         })}
       </ul>
 
-      {/* Collapse Button */}
-      <button
-        onClick={() => setCollapsed(!collapsed)}
-        style={{
-          margin: '16px auto 0',
-          padding: '8px',
-          borderRadius: '8px',
-          backgroundColor: 'rgba(255,255,255,0.05)',
-          border: 'none',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {collapsed
-          ? <ChevronRight size={16} color="rgba(255,255,255,0.4)" />
-          : <ChevronLeft size={16} color="rgba(255,255,255,0.4)" />
-        }
-      </button>
+      {/* Collapse Button — only desktop */}
+      {!isTablet && (
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          style={{
+            margin: '16px auto 0',
+            padding: '8px',
+            borderRadius: '8px',
+            backgroundColor: 'rgba(255,255,255,0.05)',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {collapsed
+            ? <ChevronRight size={16} color="rgba(255,255,255,0.4)" />
+            : <ChevronLeft size={16} color="rgba(255,255,255,0.4)" />
+          }
+        </button>
+      )}
     </motion.nav>
   )
 }

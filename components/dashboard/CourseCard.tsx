@@ -22,20 +22,28 @@ export function CourseCard({ course, index }: CourseCardProps) {
         stiffness: 300,
         damping: 20,
       }}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{
+        scale: 1.02,
+        boxShadow: '0 0 20px rgba(139, 92, 246, 0.25)',
+        borderColor: 'rgba(139, 92, 246, 0.5)',
+      }}
       style={{
-      backgroundColor: '#1a1a24',
-      border: '1px solid rgba(255,255,255,0.1)',
-      borderRadius: '16px',
-      padding: '22px',
-      cursor: 'pointer',
-      position: 'relative',
-      overflow: 'hidden',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      minHeight: '165px',
-}}
+        backgroundColor: '#1a1a24',
+        border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: '16px',
+        padding: '22px',
+        cursor: 'pointer',
+        position: 'relative',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        minHeight: '165px',
+        backgroundImage: `
+          radial-gradient(ellipse at top left, rgba(139,92,246,0.08) 0%, transparent 60%),
+          url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")
+        `,
+      }}
     >
       {/* Icon */}
       <div style={{

@@ -1,10 +1,43 @@
 export function SkeletonCard() {
   return (
-    <div className="rounded-2xl bg-[#1a1a24] border border-white/10 p-5 animate-pulse">
-      <div className="h-8 w-8 rounded-lg bg-white/10 mb-4" />
-      <div className="h-4 w-3/4 rounded bg-white/10 mb-2" />
-      <div className="h-3 w-1/2 rounded bg-white/10 mb-4" />
-      <div className="h-1.5 w-full rounded bg-white/10" />
+    <div style={{
+      backgroundColor: '#1a1a24',
+      border: '1px solid rgba(255,255,255,0.08)',
+      borderRadius: '16px',
+      padding: '22px',
+      minHeight: '165px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+    }}>
+      {/* Icon skeleton */}
+      <div style={{
+        width: '44px', height: '44px',
+        borderRadius: '10px',
+        backgroundColor: 'rgba(255,255,255,0.08)',
+      }} />
+
+      {/* Text skeleton */}
+      <div>
+        <div style={{
+          height: '14px', width: '70%',
+          backgroundColor: 'rgba(255,255,255,0.08)',
+          borderRadius: '6px', marginBottom: '8px',
+        }} />
+        <div style={{
+          height: '12px', width: '40%',
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          borderRadius: '6px',
+        }} />
+      </div>
+
+      {/* Progress bar skeleton */}
+      <div style={{
+        height: '6px', width: '100%',
+        backgroundColor: 'rgba(255,255,255,0.08)',
+        borderRadius: '999px',
+      }} />
     </div>
   )
 }
